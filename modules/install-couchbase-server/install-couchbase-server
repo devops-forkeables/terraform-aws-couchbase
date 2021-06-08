@@ -89,8 +89,7 @@ function download_couchbase_on_ubuntu {
     url="https://packages.couchbase.com/releases/$version/$filepath"
 
     log_info "Downloading Couchbase from $url to $filepath"
-    # We use ||echo to ensure a failing curl call doesn't cause the script to exit
-    if [[ "$(curl --location --silent --fail --show-error -o "$out_name" -w "%{http_code}" "$url" || echo '404')" == '404' ]]; then
+    if [[ "$(curl --location --silent --fail --show-error -o "$out_name" -w "%{http_code}" "$url")" == '404' ]]; then
       log_warn "Failed to get Couchbase from $url."
     else
       return
@@ -120,6 +119,9 @@ function install_couchbase_on_ubuntu {
   fi
 
   download_couchbase_on_ubuntu "$edition" "$version" "$dpkg_name"
+  echo "Hello world: $dpkg_name"
+  echo "$checksum $dpkg_name" | sha256sum -c
+  echo "--------------------------------------"
   os_validate_checksum "$dpkg_name" "$checksum" "$checksum_type"
 
   # Install Couchbase, but configure it to NOT start on boot. This allows the run-couchbase-server script to configure

@@ -8,16 +8,16 @@ import (
 	"github.com/gruntwork-io/terratest/modules/aws"
 	"github.com/gruntwork-io/terratest/modules/random"
 	"github.com/gruntwork-io/terratest/modules/terraform"
-	"github.com/gruntwork-io/terratest/modules/test-structure"
+	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
 )
 
 const dataNodeClusterVarName = "couchbase_data_node_cluster_name"
 const indexQuerySearchClusterVarName = "couchbase_index_query_search_node_cluster_name"
 const syncGatewayClusterVarName = "sync_gateway_cluster_name"
 
-func TestIntegrationCouchbaseEnterpriseMultiClusterUbuntu16(t *testing.T) {
+func TestIntegrationCouchbaseEnterpriseMultiClusterUbuntu20(t *testing.T) {
 	t.Parallel()
-	testCouchbaseMultiCluster(t, "ubuntu", "enterprise")
+	testCouchbaseMultiCluster(t, "ubuntu-20", "enterprise")
 }
 
 func TestIntegrationCouchbaseEnterpriseMultiClusterUbuntu18(t *testing.T) {

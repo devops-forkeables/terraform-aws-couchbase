@@ -89,7 +89,8 @@ function download_couchbase_on_ubuntu {
     url="https://packages.couchbase.com/releases/$version/$filepath"
 
     log_info "Downloading Couchbase from $url to $filepath"
-    if [[ "$(curl --location --silent --fail --show-error -o "$out_name" -w "%{http_code}" "$url")" == "404" ]]; then
+    # We use ||echo to ensure a failing curl call doesn't cause the script to exit
+    if [[ "$(curl --location --silent --fail --show-error -o "$out_name" -w "%{http_code}" "$url" || echo '404')" == '404' ]]; then
       log_warn "Failed to get Couchbase from $url."
     else
       return
